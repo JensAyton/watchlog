@@ -5,6 +5,13 @@
 #include <sys/time.h>
 
 
+static void ConfigureQuery(aslmsg query)
+{
+	const char param[] = "5";	// ASL_LEVEL_NOTICE
+	
+	asl_set_query(query, ASL_KEY_LEVEL, param, ASL_QUERY_OP_LESS_EQUAL | ASL_QUERY_OP_NUMERIC);
+}
+
 static void MessageRecieved(aslmsg msg)
 {
 	const char *sender = asl_get(msg, ASL_KEY_SENDER);
@@ -54,6 +61,7 @@ int main(int argc, const char * argv[])
 				snprintf(stringValue, sizeof stringValue, "%llu", startTime);
 				asl_set_query(query, ASL_KEY_TIME, stringValue, ASL_QUERY_OP_GREATER_EQUAL | ASL_QUERY_OP_NUMERIC);
 			}
+			ConfigureQuery(query);
 			
 			// Iterate over new messages.
 			aslmsg msg;
