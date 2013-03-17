@@ -1,0 +1,8 @@
+# Xcode cruft
+build/
+project.xcworkspace/
+xcuserdata/
+
+
+# Mac OS X cruft
+.DS_Store
